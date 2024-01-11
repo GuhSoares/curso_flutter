@@ -36,11 +36,15 @@ class _PerguntaAppState extends State<PerguntaApp> {
       },
     ];
 
-    List<Widget> respostas = [];
+    List<String> respostas =
+        perguntas[_perguntaSelecionada].cast()['respostas'];
+    List<Widget> widgets =
+        respostas.map((t) => Resposta(t, _responder)).toList();
 
-    for (var textoResp in perguntas[_perguntaSelecionada].cast()['respostas']) {
-      respostas.add(Resposta(textoResp, _responder));
-    }
+    // for (var textoResp in respostas) {
+    //   widgets.add(Resposta(textoResp, _responder));
+    // }
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -63,7 +67,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ...respostas,
+                  ...widgets,
                 ],
               ),
             ],
