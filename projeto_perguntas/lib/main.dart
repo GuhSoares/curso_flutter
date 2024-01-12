@@ -8,36 +8,38 @@ main() {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  final _perguntas = const [
+    {
+      'texto': 'Qual é sua categoria de carro favorito?',
+      'respostas': ['SUV', 'ESPORTIVO', 'HATCH', 'SEDÃ'],
+    },
+    {
+      'texto': 'Qual é seu estilo de musica favorita?',
+      'respostas': ['FUNK', 'SERTANEJO', 'TRAP', 'FORRÓ'],
+    },
+    {
+      'texto': 'Qual é seu animal favorito?',
+      'respostas': ['LEÃO', 'CROCODILO', 'URSO', 'COBRA'],
+    },
+  ];
 
   void _responder() {
-    setState(() {
-      _perguntaSelecionada++;
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
+  }
 
-      if (_perguntaSelecionada == 3) {
-        _perguntaSelecionada = 0;
-      }
-    });
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final perguntas = [
-      {
-        'texto': 'Qual é sua categoria de carro favorito?',
-        'respostas': ['SUV', 'ESPORTIVO', 'HATCH', 'SEDÃ'],
-      },
-      {
-        'texto': 'Qual é seu estilo de musica favorita?',
-        'respostas': ['FUNK', 'SERTANEJO', 'TRAP', 'FORRÓ'],
-      },
-      {
-        'texto': 'Qual é seu animal favorito?',
-        'respostas': ['LEÃO', 'CROCODILO', 'URSO', 'COBRA'],
-      },
-    ];
-
-    List<String> respostas =
-        perguntas[_perguntaSelecionada].cast()['respostas'];
+    List<String> respostas = temPerguntaSelecionada
+        ? _perguntas[_perguntaSelecionada].cast()['respostas']
+        : [];
     List<Widget> widgets =
         respostas.map((t) => Resposta(t, _responder)).toList();
 
@@ -52,27 +54,29 @@ class _PerguntaAppState extends State<PerguntaApp> {
           centerTitle: true,
           backgroundColor: Colors.purple[500],
         ),
-        body: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Questao(
-                perguntas[_perguntaSelecionada]['texto'].toString(),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ...widgets,
-                ],
-              ),
-            ],
-          ),
-        ),
+        body: temPerguntaSelecionada
+            ? Center(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Questao(
+                      _perguntas[_perguntaSelecionada]['texto'].toString(),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ...widgets,
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            : null,
       ),
     );
   }
