@@ -49,35 +49,40 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Perguntas', style: TextStyle(color: Colors.white)),
-          centerTitle: true,
-          backgroundColor: Colors.purple[500],
-        ),
-        body: temPerguntaSelecionada
-            ? Center(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Questao(
-                      _perguntas[_perguntaSelecionada]['texto'].toString(),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ...widgets,
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            : null,
-      ),
+          appBar: AppBar(
+            title:
+                const Text('Perguntas', style: TextStyle(color: Colors.white)),
+            centerTitle: true,
+            backgroundColor: Colors.purple[500],
+          ),
+          body: temPerguntaSelecionada
+              ? Center(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Questao(
+                        _perguntas[_perguntaSelecionada]['texto'].toString(),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ...widgets,
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              : const Center(
+                  child: Text(
+                    'Parabéns!',
+                    style: TextStyle(fontSize: 28),
+                  ),
+                )),
     );
   }
 }
