@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './questao.dart';
 import './resposta.dart';
+import './resultado.dart';
 
 main() {
   runApp(const PerguntaApp());
@@ -49,40 +50,35 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title:
-                const Text('Perguntas', style: TextStyle(color: Colors.white)),
-            centerTitle: true,
-            backgroundColor: Colors.purple[500],
-          ),
-          body: temPerguntaSelecionada
-              ? Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Questao(
-                        _perguntas[_perguntaSelecionada]['texto'].toString(),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ...widgets,
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              : const Center(
-                  child: Text(
-                    'Parabéns!',
-                    style: TextStyle(fontSize: 28),
-                  ),
-                )),
+        appBar: AppBar(
+          title: const Text('Perguntas', style: TextStyle(color: Colors.white)),
+          centerTitle: true,
+          backgroundColor: Colors.purple[500],
+        ),
+        body: temPerguntaSelecionada
+            ? Center(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Questao(
+                      _perguntas[_perguntaSelecionada]['texto'].toString(),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ...widgets,
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            : Resultado(),
+      ),
     );
   }
 }
