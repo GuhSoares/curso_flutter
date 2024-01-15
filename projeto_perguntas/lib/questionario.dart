@@ -3,17 +3,16 @@ import './questao.dart';
 import './resposta.dart';
 
 class Questionario extends StatelessWidget {
+  final int perguntaSelecionada;
+  final List<Map<String, Object>> perguntas;
+  final void Function(int) responder;
+
   const Questionario({
     super.key,
     required this.perguntas,
     required this.perguntaSelecionada,
     required this.responder,
   });
-
-  final int perguntaSelecionada;
-  final List<Map<String, Object>> perguntas;
-  final void Function() responder;
-
   bool get temPerguntaSelecionada {
     return perguntaSelecionada < perguntas.length;
   }
@@ -23,9 +22,12 @@ class Questionario extends StatelessWidget {
     List<Map<String, Object>> respostas = temPerguntaSelecionada
         ? perguntas[perguntaSelecionada].cast()['respostas']
         : [];
-    List<Widget> widgets = respostas
-        .map((resp) => Resposta(resp['texto'] as String, responder))
-        .toList();
+    List<Widget> widgets = respostas.map((resp) {
+      return Resposta(
+        resp['texto'].toString(),
+        () => responder(int.parse(resp['pontos'].toString())),
+      );
+    }).toList();
     return Center(
       child: Column(
         children: [
