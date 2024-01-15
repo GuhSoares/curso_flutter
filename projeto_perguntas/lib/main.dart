@@ -8,40 +8,42 @@ main() {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
   final _perguntas = const [
     {
       'texto': 'Qual é sua categoria de carro favorito?',
       'respostas': [
-        {'texto': 'SUV', 'nota': 3},
-        {'texto': 'ESPORTIVO', 'nota': 5},
-        {'texto': 'HATCH', 'nota': 4},
-        {'texto': 'SEDÃ', 'nota': 2},
+        {'texto': 'SUV', 'pontos': 3},
+        {'texto': 'ESPORTIVO', 'pontos': 5},
+        {'texto': 'HATCH', 'pontos': 4},
+        {'texto': 'SEDÃ', 'pontos': 2},
       ],
     },
     {
       'texto': 'Qual é seu estilo de musica favorita?',
       'respostas': [
-        {'texto': 'FUNK', 'nota': 2},
-        {'texto': 'SERTANEJO', 'nota': 3},
-        {'texto': 'TRAP', 'nota': 5},
-        {'texto': 'FORRÓ', 'nota': 4},
+        {'texto': 'FUNK', 'pontos': 2},
+        {'texto': 'SERTANEJO', 'pontos': 3},
+        {'texto': 'TRAP', 'pontos': 5},
+        {'texto': 'FORRÓ', 'pontos': 4},
       ],
     },
     {
       'texto': 'Qual é seu animal favorito?',
       'respostas': [
-        {'texto': 'LEÃO', 'nota': 5},
-        {'texto': 'CROCODILO', 'nota': 4},
-        {'texto': 'URSO', 'nota': 3},
-        {'texto': 'COBRA', 'nota': 2},
+        {'texto': 'LEÃO', 'pontos': 5},
+        {'texto': 'CROCODILO', 'pontos': 4},
+        {'texto': 'URSO', 'pontos': 3},
+        {'texto': 'COBRA', 'pontos': 2},
       ],
     },
   ];
 
-  void _responder() {
+  void _responder(int pontos) {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontos;
       });
     }
   }
